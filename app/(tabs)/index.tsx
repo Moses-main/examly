@@ -16,10 +16,17 @@ export default function HomeScreen() {
   }
 
   if (showAuth && !isAuthenticated) {
-    return <AuthFlow onAuthSuccess={() => {
-      setShowAuth(false);
-      setIsAuthenticated(true);
-    }} />;
+    return <AuthFlow 
+      initialScreen="signup"
+      onAuthSuccess={() => {
+        setShowAuth(false);
+        setIsAuthenticated(true);
+      }}
+      onSubjectSelectionComplete={() => {
+        setShowAuth(false);
+        setIsAuthenticated(true);
+      }}
+    />;
   }
 
   return (
