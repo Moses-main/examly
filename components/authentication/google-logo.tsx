@@ -1,4 +1,5 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Image } from 'expo-image';
 
 type GoogleLogoProps = {
   size?: number;
@@ -6,70 +7,17 @@ type GoogleLogoProps = {
 
 export function GoogleLogo({ size = 20 }: GoogleLogoProps) {
   return (
-    <View style={[styles.container, { width: size, height: size }]}>
-      <View style={styles.logo}>
-        {/* Blue section (top-left) */}
-        <View style={styles.blue} />
-        {/* Red section (top-right) */}
-        <View style={styles.red} />
-        {/* Yellow section (bottom-left) */}
-        <View style={styles.yellow} />
-        {/* Green section (bottom-right) */}
-        <View style={styles.green} />
-      </View>
-    </View>
+    <Image
+      source={{ uri: 'https://www.gstatic.com/images/branding/googleg/1x/googleg_standard_color_128dp.png' }}
+      style={[styles.logo, { width: size, height: size }]}
+      contentFit="contain"
+    />
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 20,
-    height: 20,
-  },
   logo: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  blue: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '50%',
-    height: '50%',
-    backgroundColor: '#4285F4',
-    borderTopLeftRadius: 10,
-  },
-  red: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    width: '50%',
-    height: '50%',
-    backgroundColor: '#EA4335',
-    borderTopRightRadius: 10,
-  },
-  yellow: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    width: '50%',
-    height: '50%',
-    backgroundColor: '#FBBC05',
-    borderBottomLeftRadius: 10,
-  },
-  green: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    width: '50%',
-    height: '50%',
-    backgroundColor: '#34A853',
-    borderBottomRightRadius: 10,
+    resizeMode: 'contain',
   },
 });
 

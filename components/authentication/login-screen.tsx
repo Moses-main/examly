@@ -11,7 +11,7 @@ type LoginScreenProps = {
 };
 
 export function LoginScreen({ onSignup, onClose, onLoginSuccess }: LoginScreenProps) {
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [emailOrPhone, setEmailOrPhone] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
@@ -50,14 +50,16 @@ export function LoginScreen({ onSignup, onClose, onLoginSuccess }: LoginScreenPr
             {/* Input Fields */}
             <View style={styles.inputSection}>
               <View style={styles.inputGroup}>
-                <ThemedText style={styles.label}>Phone Number</ThemedText>
+                <ThemedText style={styles.label}>Email or Phone Number</ThemedText>
                 <TextInput
                   style={styles.input}
-                  placeholder="080 1234 5678"
+                  placeholder="Enter email or phone number"
                   placeholderTextColor="#9CA3AF"
-                  value={phoneNumber}
-                  onChangeText={setPhoneNumber}
-                  keyboardType="phone-pad"
+                  value={emailOrPhone}
+                  onChangeText={setEmailOrPhone}
+                  keyboardType="default"
+                  autoCapitalize="none"
+                  autoCorrect={false}
                 />
               </View>
 
@@ -99,7 +101,7 @@ export function LoginScreen({ onSignup, onClose, onLoginSuccess }: LoginScreenPr
             </View>
 
             {/* Google Login */}
-            <TouchableOpacity style={styles.googleButton}>
+            <TouchableOpacity style={styles.googleButton} activeOpacity={0.7}>
               <GoogleLogo size={20} />
               <ThemedText style={styles.googleButtonText}>Google</ThemedText>
             </TouchableOpacity>
@@ -128,6 +130,8 @@ const styles = StyleSheet.create({
   },
   keyboardView: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   card: {
     flex: 1,
@@ -137,6 +141,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: 0,
     paddingBottom: 40,
+    maxWidth: 500,
+    width: '100%',
+    alignSelf: 'center',
+    justifyContent: 'center',
   },
   header: {
     flexDirection: 'row',

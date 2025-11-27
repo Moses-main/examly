@@ -11,8 +11,7 @@ type SignupScreenProps = {
 };
 
 export function SignupScreen({ onLogin, onClose, onSignupSuccess }: SignupScreenProps) {
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [email, setEmail] = useState('');
+  const [emailOrPhone, setEmailOrPhone] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
@@ -51,30 +50,16 @@ export function SignupScreen({ onLogin, onClose, onSignupSuccess }: SignupScreen
             {/* Input Fields */}
             <View style={styles.inputSection}>
               <View style={styles.inputGroup}>
-                <ThemedText style={styles.label}>Phone Number</ThemedText>
+                <ThemedText style={styles.label}>Email or Phone Number</ThemedText>
                 <TextInput
                   style={styles.input}
-                  placeholder="080 1234 5678"
+                  placeholder="Enter email or phone number"
                   placeholderTextColor="#9CA3AF"
-                  value={phoneNumber}
-                  onChangeText={setPhoneNumber}
-                  keyboardType="phone-pad"
-                />
-              </View>
-
-              <View style={styles.inputGroup}>
-                <View style={styles.emailHeader}>
-                  <ThemedText style={styles.label}>Email Address</ThemedText>
-                  <ThemedText style={styles.disabledText}>Temporarily Disabled</ThemedText>
-                </View>
-                <TextInput
-                  style={[styles.input, styles.disabledInput]}
-                  placeholder="student@example.com"
-                  placeholderTextColor="#9CA3AF"
-                  value={email}
-                  onChangeText={setEmail}
-                  keyboardType="email-address"
-                  editable={false}
+                  value={emailOrPhone}
+                  onChangeText={setEmailOrPhone}
+                  keyboardType="default"
+                  autoCapitalize="none"
+                  autoCorrect={false}
                 />
               </View>
 
@@ -114,7 +99,7 @@ export function SignupScreen({ onLogin, onClose, onSignupSuccess }: SignupScreen
             </View>
 
             {/* Google Signup */}
-            <TouchableOpacity style={styles.googleButton}>
+            <TouchableOpacity style={styles.googleButton} activeOpacity={0.7}>
               <GoogleLogo size={20} />
               <ThemedText style={styles.googleButtonText}>Google</ThemedText>
             </TouchableOpacity>
@@ -143,6 +128,8 @@ const styles = StyleSheet.create({
   },
   keyboardView: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   card: {
     flex: 1,
@@ -152,6 +139,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: 0,
     paddingBottom: 40,
+    maxWidth: 500,
+    width: '100%',
+    alignSelf: 'center',
+    justifyContent: 'center',
   },
   header: {
     flexDirection: 'row',
@@ -213,20 +204,6 @@ const styles = StyleSheet.create({
     color: '#11181C',
     borderWidth: 1,
     borderColor: '#E5E7EB',
-  },
-  disabledInput: {
-    opacity: 0.6,
-    backgroundColor: '#F3F4F6',
-  },
-  emailHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  disabledText: {
-    fontSize: 12,
-    color: '#9CA3AF',
-    fontStyle: 'italic',
   },
   passwordContainer: {
     flexDirection: 'row',
