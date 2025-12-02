@@ -1,16 +1,27 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack, useRouter } from 'expo-router';
+import { Stack, useRouter, useSegments } from 'expo-router';
 import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import { useEffect, useState } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { CustomTabBar } from '@/components/navigation/CustomTabBar';
+
+// Helper hook to determine if we should show the tab bar
+function useShowTabBar() {
+  const segments = useSegments();
+  const firstSegment = segments[0];
+  
+  // Show tab bar only for dashboard and its nested routes
+  return firstSegment === '(dashboard)';
+}
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
   const { isAuthenticated, selectedSubjects, isLoading } = useAuth();
   const router = useRouter();
   const [isReady, setIsReady] = useState(false);
+  const showTabBar = useShowTabBar();
 
   // Handle navigation based on auth state
   useEffect(() => {
@@ -52,16 +63,18 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen 
-          name="(dashboard)" 
-          options={{ 
-            headerShown: false,
-            animation: 'slide_from_right',
-          }} 
-        />
-      </Stack>
+      <View style={styles.container}>
+        <Stack screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: '#F9FAFB' },
+        }}>
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="(auth)" />
+          <Stack.Screen name="(dashboard)" />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+        {showTabBar && <CustomTabBar />}
+      </View>
     </ThemeProvider>
   );
 }
@@ -73,3 +86,10 @@ export default function RootLayout() {
     </AuthProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F9FAFB',
+  },
+});

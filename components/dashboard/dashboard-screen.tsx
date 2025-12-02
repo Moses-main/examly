@@ -165,6 +165,26 @@ export default function Dashboard() {
           />
         </View>
 
+        {/* DAILY STREAK */}
+        <View style={styles.streakContainer}>
+          <View style={styles.streakHeader}>
+            <Ionicons name="flame" size={20} color="#F59E0B" />
+            <Text style={styles.streakTitle}>Daily Streak</Text>
+          </View>
+          <View style={styles.streakContent}>
+            <Text style={styles.streakNumber}>7</Text>
+            <Text style={styles.streakText}>days in a row</Text>
+          </View>
+          <View style={styles.streakProgress}>
+            {[1, 2, 3, 4, 5, 6, 7].map((day) => (
+              <View
+                key={day}
+                style={[styles.streakDay, day <= 5 && styles.streakDayActive]}
+              />
+            ))}
+          </View>
+        </View>
+
         <View style={{ height: 120 }} />
       </ScrollView>
 
@@ -365,14 +385,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 40,
-    paddingBottom: 18,
+    paddingBottom: 24, // Increased bottom padding for better spacing
     paddingTop: 12,
     borderTopWidth: 1,
     borderColor: COLORS.border,
     backgroundColor: "#FFF",
-    position: "absolute",
+    position: "fixed", // Changed from absolute to fixed
     bottom: 0,
-    width: "100%",
+    left: 0,
+    right: 0,
+    zIndex: 1000, // Ensure it stays above other content
   },
   navItem: {
     alignItems: "center",
@@ -404,5 +426,75 @@ const styles = StyleSheet.create({
     shadowColor: "#4F46E5",
     shadowOpacity: 0.3,
     shadowRadius: 8,
+  },
+
+  // Center Button
+  centerButton: {
+    marginTop: -32,
+  },
+  flashButton: {
+    width: 62,
+    height: 62,
+    borderRadius: 31,
+    backgroundColor: COLORS.primary,
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 8,
+    shadowColor: "#4F46E5",
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+  },
+
+  // Streak Styles
+  streakContainer: {
+    backgroundColor: "#FFF",
+    borderRadius: 16,
+    padding: 16,
+    margin: 16,
+    marginTop: 24,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  streakHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  streakTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: COLORS.textDark,
+    marginLeft: 8,
+  },
+  streakContent: {
+    flexDirection: "row",
+    alignItems: "baseline",
+    marginBottom: 12,
+  },
+  streakNumber: {
+    fontSize: 32,
+    fontWeight: "700",
+    color: COLORS.textDark,
+    marginRight: 8,
+  },
+  streakText: {
+    fontSize: 14,
+    color: COLORS.textLight,
+  },
+  streakProgress: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  streakDay: {
+    width: 30,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: "#E5E7EB",
+  },
+  streakDayActive: {
+    backgroundColor: "#F59E0B",
   },
 });
