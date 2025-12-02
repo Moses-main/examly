@@ -187,40 +187,6 @@ export default function Dashboard() {
 
         <View style={{ height: 120 }} />
       </ScrollView>
-
-      {/* BOTTOM NAVIGATION */}
-      <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItem}>
-          <Ionicons name="home" size={26} color={COLORS.primary} />
-          <Text style={styles.navLabelActive}>Home</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.navItem}>
-          <Feather name="book-open" size={24} color={COLORS.textLight} />
-          <Text style={styles.navLabel}>Practice</Text>
-        </TouchableOpacity>
-
-        {/* BIG FLASH BUTTON */}
-        <TouchableOpacity style={styles.centerButton}>
-          <View style={styles.flashButton}>
-            <Ionicons name="flash" size={28} color="#FFF" />
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.navItem}>
-          <Feather name="bar-chart-2" size={24} color={COLORS.textLight} />
-          <Text style={styles.navLabel}>Stats</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.navItem}>
-          <Ionicons
-            name="settings-outline"
-            size={24}
-            color={COLORS.textLight}
-          />
-          <Text style={styles.navLabel}>Settings</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 }
@@ -380,70 +346,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 
-  // NAVIGATION BAR
-  bottomNav: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 40,
-    paddingBottom: 24, // Increased bottom padding for better spacing
-    paddingTop: 12,
-    borderTopWidth: 1,
-    borderColor: COLORS.border,
-    backgroundColor: "#FFF",
-    position: "fixed", // Changed from absolute to fixed
-    bottom: 0,
-    left: 0,
-    right: 0,
-    zIndex: 1000, // Ensure it stays above other content
-  },
-  navItem: {
-    alignItems: "center",
-  },
-  navLabel: {
-    fontSize: 12,
-    color: COLORS.textLight,
-    marginTop: 2,
-  },
-  navLabelActive: {
-    fontSize: 12,
-    color: COLORS.primary,
-    fontWeight: "700",
-    marginTop: 2,
-  },
-
-  // CENTER BUTTON
-  centerButton: {
-    marginTop: -32,
-  },
-  flashButton: {
-    width: 62,
-    height: 62,
-    borderRadius: 31,
-    backgroundColor: COLORS.primary,
-    justifyContent: "center",
-    alignItems: "center",
-    elevation: 8,
-    shadowColor: "#4F46E5",
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-  },
-
-  // Center Button
-  centerButton: {
-    marginTop: -32,
-  },
-  flashButton: {
-    width: 62,
-    height: 62,
-    borderRadius: 31,
-    backgroundColor: COLORS.primary,
-    justifyContent: "center",
-    alignItems: "center",
-    elevation: 8,
-    shadowColor: "#4F46E5",
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-  },
 
   // Streak Styles
   streakContainer: {
