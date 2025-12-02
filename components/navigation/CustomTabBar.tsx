@@ -1,13 +1,14 @@
-import React from 'react';
-import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
-import { Ionicons, Feather } from '@expo/vector-icons';
-import { useRouter, usePathname } from 'expo-router';
+import { Feather, Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
+import { usePathname, useRouter } from "expo-router";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const COLORS = {
-  primary: '#4F46E5',
-  textLight: '#6A6A6A',
-  background: '#FFF',
-  border: '#E5E7EB',
+  primary: "#4F46E5",
+  textLight: "#6A6A6A",
+  background: "#FFF",
+  border: "#E5E7EB",
 };
 
 export function CustomTabBar() {
@@ -20,25 +21,25 @@ export function CustomTabBar() {
 
   const tabs = [
     {
-      name: 'Home',
-      icon: 'home',
-      route: '/(dashboard)',
+      name: "Home",
+      icon: "home",
+      route: "/(dashboard)",
     },
     {
-      name: 'Practice',
-      icon: 'book-open',
-      route: '/(dashboard)/practice',
+      name: "Practice",
+      icon: "book-open",
+      route: "/(dashboard)/practice",
     },
     // Flash button will be inserted here
     {
-      name: 'Stats',
-      icon: 'bar-chart-2',
-      route: '/(dashboard)/stats',
+      name: "Stats",
+      icon: "bar-chart-2",
+      route: "/(dashboard)/stats",
     },
     {
-      name: 'Settings',
-      icon: 'settings-outline',
-      route: '/(dashboard)/settings',
+      name: "Settings",
+      icon: "settings-outline",
+      route: "/(dashboard)/settings",
     },
   ];
 
@@ -50,7 +51,7 @@ export function CustomTabBar() {
           style={styles.tab}
           onPress={() => router.push(tab.route as any)}
         >
-          {tab.name === 'Home' ? (
+          {tab.name === "Home" ? (
             <Ionicons
               name={tab.icon as any}
               size={24}
@@ -66,27 +67,36 @@ export function CustomTabBar() {
           <Text
             style={[
               styles.label,
-              { color: isActive(tab.route) ? COLORS.primary : COLORS.textLight },
+              {
+                color: isActive(tab.route) ? COLORS.primary : COLORS.textLight,
+              },
             ]}
           >
             {tab.name}
           </Text>
         </TouchableOpacity>
       ))}
-      
+
       {/* Flash Button */}
       <View style={styles.flashButtonContainer}>
-        <TouchableOpacity
-          style={styles.flashButton}
-          onPress={() => {
-            // Add flash button action here
-            console.log('Flash button pressed');
-          }}
+        <LinearGradient
+          colors={["#4F46E5", "#7C3AED"]}
+          style={styles.flashButtonGradient}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
         >
-          <Ionicons name="flash" size={28} color="#FFF" />
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.flashButton}
+            onPress={() => {
+              // Add flash button action here
+              console.log("Flash button pressed");
+            }}
+          >
+            <Ionicons name="flash" size={32} color="#FFF" />
+          </TouchableOpacity>
+        </LinearGradient>
       </View>
-      
+
       {tabs.slice(2).map((tab) => (
         <TouchableOpacity
           key={tab.name}
@@ -101,7 +111,9 @@ export function CustomTabBar() {
           <Text
             style={[
               styles.label,
-              { color: isActive(tab.route) ? COLORS.primary : COLORS.textLight },
+              {
+                color: isActive(tab.route) ? COLORS.primary : COLORS.textLight,
+              },
             ]}
           >
             {tab.name}
@@ -114,36 +126,48 @@ export function CustomTabBar() {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
     paddingVertical: 12,
     backgroundColor: COLORS.background,
     borderTopWidth: 1,
     borderTopColor: COLORS.border,
-    position: 'relative',
+    position: "relative",
   },
   tab: {
-    alignItems: 'center',
+    alignItems: "center",
     flex: 1,
   },
   flashButtonContainer: {
-    alignItems: 'center',
-    width: 80,
-    marginTop: -32,
+    width: "20%",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    marginTop: -30, // Increased from -24 to lift the button higher
+  },
+  flashButtonGradient: {
+    width: 72, // Increased from 64
+    height: 72, // Increased from 64
+    borderRadius: 36, // Increased from 32
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 20, // Increased from 8
+    shadowColor: "#4F46E5",
+    shadowOffset: { width: 0, height: 8 }, // Increased shadow offset
+    shadowOpacity: 0.4, // Slightly more visible shadow
+    shadowRadius: 15, // Increased from 12
+    borderWidth: 6, // Increased from 3
+    borderColor: "#FFF",
+    marginTop: -30,
   },
   flashButton: {
-    width: 62,
-    height: 62,
-    borderRadius: 31,
-    backgroundColor: COLORS.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-    elevation: 8,
-    shadowColor: COLORS.primary,
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 4 },
+    width: 64, // Increased from 56
+    height: 64, // Increased from 56
+    borderRadius: 32, // Increased from 28
+    backgroundColor: "transparent",
+    justifyContent: "center",
+    alignItems: "center",
   },
   label: {
     fontSize: 12,

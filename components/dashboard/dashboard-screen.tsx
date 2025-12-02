@@ -59,19 +59,33 @@ const Subject = ({
 export default function Dashboard() {
   return (
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {/* HEADER */}
+      {/* STICKY HEADER */}
+      <View style={styles.stickyHeader}>
         <View style={styles.header}>
-          <View>
-            <Text style={styles.greeting}>Good Morning,</Text>
-            <Text style={styles.name}>David</Text>
+          <View style={styles.userInfo}>
+            <Ionicons name="person-circle-outline" size={24} color={COLORS.primary} style={styles.userIcon} />
+            <View>
+              <Text style={styles.greeting}>Good Morning,</Text>
+              <Text style={styles.name}>David</Text>
+            </View>
           </View>
-
-          <TouchableOpacity style={styles.statusButton}>
-            <Ionicons name="cloud-offline-outline" size={16} color="#000" />
-            <Text style={styles.statusText}>Offline</Text>
-          </TouchableOpacity>
+          <View style={styles.headerIcons}>
+            <TouchableOpacity style={styles.notificationButton}>
+              <Ionicons name="notifications-outline" size={24} color={COLORS.textDark} />
+              <View style={styles.notificationBadge} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.statusButton}>
+              <Ionicons name="cloud-offline-outline" size={16} color="#000" />
+              <Text style={styles.statusText}>Offline</Text>
+            </TouchableOpacity>
+          </View>
         </View>
+      </View>
+
+      <ScrollView 
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContent}
+      >
 
         {/* START PRACTICE CARD */}
         <LinearGradient colors={["#4F46E5", "#7C3AED"]} style={styles.bigCard}>
@@ -200,13 +214,53 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
   },
 
+  // Sticky header
+  stickyHeader: {
+    position: 'sticky',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1000,
+    backgroundColor: COLORS.background,
+    paddingTop: SPACING.s,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+  },
+  scrollContent: {
+    paddingTop: 10, // Reduced from 70 to bring content closer to header
+    paddingBottom: 20,
+  },
   // HEADER
   header: {
     padding: SPACING.m,
-    paddingTop: SPACING.xl,
+    paddingTop: SPACING.s,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  userInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  userIcon: {
+    marginRight: 10,
+  },
+  headerIcons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  notificationButton: {
+    position: 'relative',
+    marginRight: 15,
+  },
+  notificationBadge: {
+    position: 'absolute',
+    top: 2,
+    right: 2,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#FF3B30',
   },
   greeting: {
     fontSize: 14,
@@ -238,7 +292,7 @@ const styles = StyleSheet.create({
   // LARGE CARDS
   bigCard: {
     marginHorizontal: SPACING.m,
-    marginTop: SPACING.m,
+    marginTop: 12, // Reduced from SPACING.m to bring it closer to header
     padding: SPACING.m,
     borderRadius: 22,
     flexDirection: "row",
