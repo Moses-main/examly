@@ -1,49 +1,46 @@
 import { AuthFlow } from '@/components/authentication/auth-flow';
 import { OnboardingScreen } from '@/components/onboarding-screen';
-import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState, useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function HomeScreen() {
   const [showOnboarding, setShowOnboarding] = useState(true);
-  const [showAuth, setShowAuth] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, login, completeSubjectSelection } = useAuth();
+
+  // Skip onboarding if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      setShowOnboarding(false);
+    }
+  }, [isAuthenticated]);
 
   if (showOnboarding) {
-    return <OnboardingScreen onComplete={() => {
-      setShowOnboarding(false);
-      setShowAuth(true);
-    }} />;
+    return (
+      <OnboardingScreen 
+        onComplete={() => setShowOnboarding(false)} 
+      />
+    );
   }
 
-  if (showAuth && !isAuthenticated) {
-    return <AuthFlow 
-      initialScreen="signup"
-      onAuthSuccess={() => {
-        setShowAuth(false);
-        setIsAuthenticated(true);
-      }}
-      onSubjectSelectionComplete={() => {
-        setShowAuth(false);
-        setIsAuthenticated(true);
-      }}
-    />;
+  // Show auth flow if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <AuthFlow 
+        initialScreen="signup"
+        onAuthSuccess={login}
+        onSubjectSelectionComplete={completeSubjectSelection}
+      />
+    );
   }
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Hello World</Text>
-    </View>
-  );
+  // This will be shown briefly before the navigation happens in the root layout
+  return <View style={styles.container} />;
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 24,
-    color: 'white',
+    backgroundColor: '#F9FAFB',
   },
 });

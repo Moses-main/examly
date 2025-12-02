@@ -6,7 +6,7 @@ import { SubjectSelectionScreen } from '../subjects/subject-selection-screen';
 
 type AuthFlowProps = {
   onAuthSuccess: () => void;
-  onSubjectSelectionComplete?: () => void;
+  onSubjectSelectionComplete: () => void;
   initialScreen?: 'login' | 'signup';
 };
 
@@ -14,19 +14,18 @@ export function AuthFlow({ onAuthSuccess, onSubjectSelectionComplete, initialScr
   const [currentScreen, setCurrentScreen] = useState<'login' | 'signup' | 'subjects'>(initialScreen);
 
   const handleLoginSuccess = () => {
+    // Only call onAuthSuccess if we're not going to show subject selection
     onAuthSuccess();
   };
 
   const handleSignupSuccess = () => {
+    // After signup, show subject selection
     setCurrentScreen('subjects');
   };
 
   const handleSubjectSelectionComplete = () => {
-    if (onSubjectSelectionComplete) {
-      onSubjectSelectionComplete();
-    } else {
-      onAuthSuccess();
-    }
+    // When subjects are selected, call the completion handler
+    onSubjectSelectionComplete();
   };
 
   if (currentScreen === 'subjects') {
