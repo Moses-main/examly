@@ -2,12 +2,15 @@ import { Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import {
-  ScrollView,
+  RefreshControl,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
+  Animated,
+  Platform,
 } from "react-native";
+import { useRef, useState } from "react";
 
 // ----------------------------------------------
 // DESIGN TOKENS
@@ -57,10 +60,44 @@ const Subject = ({
 // MAIN DASHBOARD
 // ----------------------------------------------
 export default function Dashboard() {
+  const [refreshing, setRefreshing] = useState(false);
+  const scrollY = useRef(new Animated.Value(0)).current;
+  
+  // Handle pull to refresh
+  const onRefresh = () => {
+    setRefreshing(true);
+    // Simulate network request
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1500);
+  };
+
+  // Animate header based on scroll
+  const headerTranslateY = scrollY.interpolate({
+    inputRange: [0, 100],
+    outputRange: [0, -50],
+    extrapolate: 'clamp',
+  });
+
+  // Animate header opacity based on scroll
+  const headerOpacity = scrollY.interpolate({
+    inputRange: [0, 50],
+    outputRange: [1, 0.8],
+    extrapolate: 'clamp',
+  });
+
   return (
     <View style={styles.container}>
       {/* STICKY HEADER */}
-      <View style={styles.stickyHeader}>
+      <Animated.View 
+        style={[
+          styles.stickyHeader,
+          {
+            transform: [{ translateY: headerTranslateY }],
+            opacity: headerOpacity,
+          }
+        ]}
+      >
         <View style={styles.header}>
           <View style={styles.userInfo}>
             <Ionicons name="person-circle-outline" size={24} color={COLORS.primary} style={styles.userIcon} />
@@ -80,11 +117,25 @@ export default function Dashboard() {
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </Animated.View>
 
-      <ScrollView 
+      <Animated.ScrollView 
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={COLORS.primary}
+            colors={[COLORS.primary]}
+            progressViewOffset={Platform.OS === 'android' ? 40 : 0}
+          />
+        }
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: true }
+        )}
+        scrollEventThrottle={16}
       >
 
         {/* START PRACTICE CARD */}
@@ -177,6 +228,13 @@ export default function Dashboard() {
               <MaterialCommunityIcons name="atom" size={26} color="#8B5CF6" />
             }
           />
+          <Subject
+            title="Chemistry"
+            color="#10B981"
+            icon={
+              <MaterialCommunityIcons name="flask" size={24} color="#10B981" />
+            }
+          />
         </View>
 
         {/* DAILY STREAK */}
@@ -200,7 +258,7 @@ export default function Dashboard() {
         </View>
 
         <View style={{ height: 120 }} />
-      </ScrollView>
+      </Animated.ScrollView>
     </View>
   );
 }
@@ -216,7 +274,7 @@ const styles = StyleSheet.create({
 
   // Sticky header
   stickyHeader: {
-    position: 'sticky',
+    position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
@@ -225,10 +283,16 @@ const styles = StyleSheet.create({
     paddingTop: SPACING.s,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   scrollContent: {
-    paddingTop: 10, // Reduced from 70 to bring content closer to header
-    paddingBottom: 20,
+    paddingTop: 80, // Space for the sticky header
+    paddingBottom: 40,
+    paddingHorizontal: 0,
   },
   // HEADER
   header: {
@@ -292,8 +356,9 @@ const styles = StyleSheet.create({
   // LARGE CARDS
   bigCard: {
     marginHorizontal: SPACING.m,
-    marginTop: 12, // Reduced from SPACING.m to bring it closer to header
-    padding: SPACING.m,
+    marginTop: 12,
+    padding: SPACING.l, // Increased padding for more height
+    minHeight: 120, // Set a minimum height
     borderRadius: 22,
     flexDirection: "row",
     alignItems: "center",
@@ -378,13 +443,15 @@ const styles = StyleSheet.create({
   },
   subjectList: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
     paddingHorizontal: SPACING.m,
     marginTop: SPACING.m,
   },
   subjectCard: {
-    width: 100,
+    width: '23%', // Slightly less than 25% to account for margins
     alignItems: "center",
+    marginBottom: SPACING.m,
   },
   subjectIcon: {
     width: 68,
