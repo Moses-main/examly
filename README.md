@@ -1,50 +1,114 @@
-# Welcome to your Expo app 👋
+# KVAULT Mobile App 📱
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+KVAULT is a modern, cross-platform mobile application built with React Native and Expo, designed to provide an intuitive learning experience with features like practice sessions, subject tracking, and progress monitoring.
 
-## Get started
+## ✨ Features
 
-1. Install dependencies
+- **Modern UI/UX** with smooth animations and responsive design
+- **Custom Navigation** with a floating action button
+- **Subject Management** for tracking different subjects
+- **Practice Sessions** with AI-generated questions
+- **Progress Tracking** with daily streaks and statistics
+- **Offline Support** for learning on the go
+- **Responsive Layout** that works on various screen sizes
 
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 16+ and npm
+- Expo CLI (`npm install -g expo-cli`)
+- Android Studio / Xcode (for emulator) or Expo Go app (for physical device)
+
+### Installation
+
+1. Clone the repository
+   ```bash
+   git clone https://github.com/your-username/kvault.git
+   cd kvault
+   ```
+
+2. Install dependencies
    ```bash
    npm install
    ```
 
-2. Start the app
-
+3. Start the development server
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+4. Run on your preferred platform
+   - Press `a` for Android emulator
+   - Press `i` for iOS simulator (macOS only)
+   - Scan the QR code with Expo Go (iOS/Android)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 🛠 Tech Stack
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- **Frontend**: React Native with TypeScript
+- **Navigation**: Expo Router
+- **Styling**: React Native StyleSheet
+- **Icons**: Expo Vector Icons
+- **Animations**: React Native Reanimated
+- **State Management**: React Context API
+- **Build Tool**: Expo
 
-## Get a fresh project
+## 📱 Screens
 
-When you're ready, run:
+- **Dashboard**: Overview of subjects and quick actions
+- **Practice**: Start practice sessions
+- **Stats**: View learning statistics and progress
+- **Settings**: App configuration and preferences
 
-```bash
-npm run reset-project
+## 🏗 Project Structure
+
+```
+kvault/
+├── app/                    # Main app directory with routes
+│   ├── (dashboard)/        # Dashboard related screens
+│   ├── _layout.tsx         # Root layout configuration
+│   └── index.tsx           # Entry point
+├── assets/                 # Static assets (images, fonts, etc.)
+├── components/             # Reusable UI components
+│   ├── dashboard/          # Dashboard specific components
+│   └── navigation/         # Navigation components
+├── constants/              # App constants and theme
+└── hooks/                  # Custom React hooks
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🧪 Testing
 
-## Learn more
+Run tests using:
+```bash
+npm test
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## 📦 Building for Production
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Android
+```bash
+eas build --platform android
+```
 
-## Join the community
+### iOS
+```bash
+eas build --platform ios
+```
 
-Join our community of developers creating universal apps.
+## 🤝 Contributing
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [Expo](https://expo.dev/) for the amazing development experience
+- [React Native](https://reactnative.dev/) for cross-platform development
+- All the open-source libraries that made this project possible
