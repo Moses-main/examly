@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "kvault",
-    "slug": "kvault",
+    "name": "examly",
+    "slug": "examly",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "kvault",
+    "scheme": "examly",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -20,7 +20,7 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.kvault"
+      "package": "com.anonymous.examly"
     },
     "web": {
       "output": "static",

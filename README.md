@@ -1,6 +1,6 @@
-# KVAULT Mobile App 📱
+# Examly Mobile App 📱
 
-KVAULT is a modern, cross-platform mobile application built with React Native and Expo, designed to provide an intuitive learning experience with features like practice sessions, subject tracking, and progress monitoring.
+Examly is a modern, cross-platform mobile application built with React Native and Expo, designed to provide an intuitive learning experience with features like practice sessions, subject tracking, and progress monitoring.
 
 ## ✨ Features
 
@@ -23,17 +23,20 @@ KVAULT is a modern, cross-platform mobile application built with React Native an
 ### Installation
 
 1. Clone the repository
+
    ```bash
-   git clone https://github.com/your-username/kvault.git
-   cd kvault
+   git clone https://github.com/your-username/examly.git
+   cd examly
    ```
 
 2. Install dependencies
+
    ```bash
    npm install
    ```
 
 3. Start the development server
+
    ```bash
    npx expo start
    ```
@@ -63,7 +66,7 @@ KVAULT is a modern, cross-platform mobile application built with React Native an
 ## 🏗 Project Structure
 
 ```
-kvault/
+examly/
 ├── app/                    # Main app directory with routes
 │   ├── (dashboard)/        # Dashboard related screens
 │   ├── _layout.tsx         # Root layout configuration
@@ -79,6 +82,7 @@ kvault/
 ## 🧪 Testing
 
 Run tests using:
+
 ```bash
 npm test
 ```
@@ -86,11 +90,13 @@ npm test
 ## 📦 Building for Production
 
 ### Android
+
 ```bash
 eas build --platform android
 ```
 
 ### iOS
+
 ```bash
 eas build --platform ios
 ```
