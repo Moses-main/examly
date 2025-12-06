@@ -1,19 +1,26 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack, useRouter, useSegments } from 'expo-router';
-import 'react-native-reanimated';
-import { useColorScheme } from '@/hooks/use-color-scheme';
-import { AuthProvider, useAuth } from '@/contexts/AuthContext';
-import { useEffect, useState } from 'react';
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
-import { CustomTabBar } from '@/components/navigation/CustomTabBar';
+import { CustomTabBar } from "@/components/navigation/CustomTabBar";
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { useColorScheme } from "@/hooks/use-color-scheme";
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from "@react-navigation/native";
+import { Stack, useRouter, useSegments } from "expo-router";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
+import "react-native-reanimated";
+
+// Keep the splash screen visible while we fetch resources
+// SplashScreen.preventAutoHideAsync();
 
 // Helper hook to determine if we should show the tab bar
 function useShowTabBar() {
   const segments = useSegments();
   const firstSegment = segments[0];
-  
+
   // Show tab bar only for dashboard and its nested routes
-  return firstSegment === '(dashboard)';
+  return firstSegment === "(dashboard)";
 }
 
 function RootLayoutNav() {
@@ -37,37 +44,41 @@ function RootLayoutNav() {
 
     if (isAuthenticated && selectedSubjects) {
       // If authenticated and subjects are selected, go to dashboard
-      router.replace('/(dashboard)');
+      router.replace("/(dashboard)");
     } else if (isAuthenticated) {
       // If authenticated but no subjects selected, stay on auth flow
-      router.replace('/(tabs)');
+      router.replace("/(tabs)");
     } else {
       // Not authenticated, show auth flow
-      router.replace('/(tabs)');
+      router.replace("/(tabs)");
     }
   }, [isAuthenticated, selectedSubjects, router, isReady, isLoading]);
 
   // Show a loading indicator while the app is initializing
   if (isLoading || !isReady) {
     return (
-      <View style={{ 
-        flex: 1, 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        backgroundColor: '#F9FAFB' 
-      }}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#F9FAFB",
+        }}
+      >
         <ActivityIndicator size="large" color="#4F46E5" />
       </View>
     );
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <View style={styles.container}>
-        <Stack screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: '#F9FAFB' },
-        }}>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: "#F9FAFB" },
+          }}
+        >
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="(auth)" />
           <Stack.Screen name="(dashboard)" />
@@ -90,6 +101,6 @@ export default function RootLayout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: "#F9FAFB",
   },
 });

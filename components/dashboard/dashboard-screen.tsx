@@ -1,5 +1,6 @@
 import { Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from 'expo-router';
 import React from "react";
 import {
   RefreshControl,
@@ -60,6 +61,7 @@ const Subject = ({
 // MAIN DASHBOARD
 // ----------------------------------------------
 export default function Dashboard() {
+  const router = useRouter();
   const [refreshing, setRefreshing] = useState(false);
   const scrollY = useRef(new Animated.Value(0)).current;
   
@@ -139,20 +141,25 @@ export default function Dashboard() {
       >
 
         {/* START PRACTICE CARD */}
-        <LinearGradient colors={["#4F46E5", "#7C3AED"]} style={styles.bigCard}>
-          <View style={styles.iconCircle}>
-            <Ionicons name="flash" size={28} color="#FFF" />
-          </View>
+        <TouchableOpacity 
+          onPress={() => router.push('/(dashboard)/practice')}
+          activeOpacity={0.9}
+        >
+          <LinearGradient colors={["#4F46E5", "#7C3AED"]} style={styles.bigCard}>
+            <View style={styles.iconCircle}>
+              <Ionicons name="flash" size={28} color="#FFF" />
+            </View>
 
-          <View style={{ flex: 1 }}>
-            <Text style={styles.bigCardTitle}>Start Practice</Text>
-            <Text style={styles.bigCardText}>
-              Jump into a random quiz session.
-            </Text>
-          </View>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.bigCardTitle}>Start Practice</Text>
+              <Text style={styles.bigCardText}>
+                Jump into a random quiz session.
+              </Text>
+            </View>
 
-          <Ionicons name="chevron-forward" size={26} color="#FFF" />
-        </LinearGradient>
+            <Ionicons name="chevron-forward" size={26} color="#FFF" />
+          </LinearGradient>
+        </TouchableOpacity>
 
         {/* AI GENERATED CARD */}
         <LinearGradient

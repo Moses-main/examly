@@ -1,9 +1,15 @@
-import { View, Text } from 'react-native';
+import { useLocalSearchParams } from 'expo-router';
+import SubjectSelectionScreen from '@/components/practice/subject-selection-screen';
+import PracticeScreen from '@/components/practice/practice-screen';
 
-export default function PracticeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Practice Screen</Text>
-    </View>
-  );
+export default function PracticeScreenWrapper() {
+  const { subjectId } = useLocalSearchParams<{ subjectId?: string }>();
+
+  // If no subject is selected, show the subject selection screen
+  if (!subjectId) {
+    return <SubjectSelectionScreen />;
+  }
+
+  // Otherwise, show the practice screen with the selected subject
+  return <PracticeScreen subjectId={subjectId} />;
 }

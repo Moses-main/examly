@@ -17,6 +17,12 @@ export default function DashboardLayout() {
         }} 
       />
       <Stack.Screen 
+        name="results" 
+        options={{ 
+          headerShown: false,
+        }} 
+      />
+      <Stack.Screen 
         name="stats" 
         options={{ 
           headerShown: false,
